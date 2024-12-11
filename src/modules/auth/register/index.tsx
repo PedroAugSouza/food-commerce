@@ -8,7 +8,7 @@ export const RegisterModule = () => {
 
   return (
     <form className="flex w-60 flex-col items-center gap-2" action={handle}>
-      <Croissant size={100} strokeWidth={1.5} />
+      {/* <Croissant size={100} strokeWidth={1.5} /> */}
       <div className="mt-2 flex flex-col items-start justify-start">
         <label htmlFor="username" className="px-1 text-zinc-700">
           Nome de usuário:
@@ -70,7 +70,7 @@ export const RegisterModule = () => {
       <p className="text-sm">
         Já posssui cadastro?{' '}
         <strong className="font-medium hover:underline">
-          <a href="#">Entre com sua conta</a>
+          <a href="/login">Entre com sua conta</a>
         </strong>
       </p>
     </form>

@@ -1,6 +1,5 @@
-import { API_URL } from '../constants';
 import { api } from '../lib/axios';
-import { InputRegisterUser } from './register-user.contracts';
+import { InputRegisterUser } from './register-user.contact';
 
 export const registerUserService = async (input: InputRegisterUser) => {
   const response = await api.post('/register', { ...input, role: 'COMMOM' });
