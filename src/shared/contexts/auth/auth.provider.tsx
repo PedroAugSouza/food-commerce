@@ -1,15 +1,23 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ServerErrorsType, SigninInput, User } from './auth.contact';
 import { AuthContext } from './auth.context';
 import { authenticateUserService } from '@/shared/services/authenticate-user.service';
 import { ReasonsErrors } from '@/shared/constants/reasons-errors.constants';
 import { COOKIE_KEY } from '@/shared/constants';
-import { deleteCookie, setCookie } from 'cookies-next';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
+import { jwtDecode } from 'jwt-decode';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User>();
   const [serverErrors, setServerErrors] = useState<ServerErrorsType>();
+
+  useEffect(() => {
+    const cookie = getCookie(COOKIE_KEY);
+    if (cookie) {
+      setUser(jwtDecode(cookie));
+    }
+  }, []);
 
   const signIn = async (input: SigninInput) => {
     const result = await authenticateUserService({ ...input });
@@ -29,6 +37,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     } else {
       setCookie(COOKIE_KEY, result.access_token);
+      setUser(jwtDecode(result.access_token));
     }
   };
 
