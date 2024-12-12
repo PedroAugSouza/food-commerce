@@ -7,7 +7,6 @@ import { ReasonsErrors } from '../constants/reasons-errors.constants';
 export const registerUserAction = async (_: unknown, form: FormData) => {
   const result = registerUserSchema.safeParse(Object.fromEntries(form));
   
-
   if (!result.success) {
     return result.error.flatten().fieldErrors;
   }

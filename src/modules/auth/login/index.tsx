@@ -1,8 +1,5 @@
 'use client';
-import { AuthenticateUserAction } from '@/shared/actions/authenticate-user.action';
-import { registerUserAction } from '@/shared/actions/register-user.action';
-import { Croissant } from 'lucide-react';
-import { useActionState, useState } from 'react';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { LoginFormType, ServerErrorsType } from './types';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,9 +8,10 @@ import { authenticateUserService } from '@/shared/services/authenticate-user.ser
 import { ReasonsErrors } from '@/shared/constants/reasons-errors.constants';
 import { setCookie } from 'cookies-next';
 import { COOKIE_KEY } from '@/shared/constants';
+import { useAuth } from '@/shared/contexts/auth/useAuth.hook';
 
 export const LoginModule = () => {
-  const [serverErrors, setServerErrors] = useState<ServerErrorsType>();
+  const { signIn, serverErrors } = useAuth();
 
   const {
     register,
@@ -24,24 +22,7 @@ export const LoginModule = () => {
   });
 
   const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
-    const result = await authenticateUserService({ ...data });
-    if (result.response) {
-      if (
-        result.response.data.reason === ReasonsErrors.PASSWORD_DOES_NOT_MATCH
-      ) {
-        setServerErrors((previousValue) => ({
-          ...previousValue,
-          password: 'Senha está incorreta',
-        }));
-      } else if (result.response.data.reason === ReasonsErrors.USER_NOT_FOUND) {
-        setServerErrors((previousValue) => ({
-          ...previousValue,
-          email: 'Usuário não encontrado',
-        }));
-      }
-    } else {
-      setCookie(COOKIE_KEY, result.access_token);
-    }
+    await signIn(data);
   };
 
   return (
@@ -87,7 +68,7 @@ export const LoginModule = () => {
       <p className="text-sm">
         Não posssui cadastro?{' '}
         <strong className="font-medium hover:underline">
-          <a href="/login">Crie uma nova conta.</a>
+          <a href="/register">Crie uma nova conta.</a>
         </strong>
       </p>
     </form>
