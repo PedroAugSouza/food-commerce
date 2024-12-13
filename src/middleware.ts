@@ -7,9 +7,7 @@ import { RoleUser } from './shared/value-objects/role-user.value-object';
 export const middleware = async (request: NextRequest) => {
   const cookie = request.cookies.get(COOKIE_KEY);
   const token = cookie?.value;
-  // const tokenParsed = jwtDecode(token)
   const loginUrl = new URL('/login', request.url);
-  const registerUrl = new URL('/register', request.url);
   const homeUrl = new URL('/', request.url);
   const adminUrl = new URL('/admin', request.url);
 
