@@ -16,7 +16,7 @@ export interface User {
   email: string;
   username: string;
   role: RoleUser;
-  uuid: string;
+  sub: string;
 }
 export interface ServerErrorsType {
   email?: string;
