@@ -7,10 +7,14 @@ import { ReasonsErrors } from '@/shared/constants/reasons-errors.constants';
 import { COOKIE_KEY } from '@/shared/constants';
 import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import { jwtDecode } from 'jwt-decode';
+import { useRouter } from 'next/navigation';
+import { IToken } from '@/shared/types/middleware.contact';
+import { RoleUser } from '@/shared/value-objects/role-user.value-object';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User>();
   const [serverErrors, setServerErrors] = useState<ServerErrorsType>();
+  const { push } = useRouter();
 
   useEffect(() => {
     const cookie = getCookie(COOKIE_KEY);
@@ -37,7 +41,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     } else {
       setCookie(COOKIE_KEY, result.access_token);
-      setUser(jwtDecode(result.access_token));
+      const userToken = jwtDecode(result.access_token) as User;
+      setUser(userToken);
+
+      if (userToken.role === RoleUser.ADMIN) {
+        push('/admin');
+      } else {
+        push('/');
+      }
     }
   };
 
