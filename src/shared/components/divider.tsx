@@ -11,7 +11,7 @@ interface Props {
 export const Divider = ({ color, size = 'xs' }: Props) => {
   return (
     <div
-      className={clsx(`mt-1 w-full`, {
+      className={clsx(`my-1 w-full`, {
         'h-[1px]': size === 'xs',
         'h-1': size === 'md',
         'h-2': size === 'lg',

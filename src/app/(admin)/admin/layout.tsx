@@ -13,7 +13,9 @@ export default function AdminLayout({
     <section className="flex h-screen w-screen items-center justify-center bg-zinc-900">
       <Sidebar />
       <main className="h-full flex-1 bg-zinc-900 p-1">
-        <div className="h-full flex-1 rounded-md bg-white p-1">{children}</div>
+        <div className="flex h-full flex-1 flex-col items-center justify-start rounded-md bg-white p-1">
+          {children}
+        </div>
       </main>
     </section>
   );

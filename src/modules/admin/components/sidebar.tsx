@@ -15,7 +15,7 @@ export const Sidebar = () => {
         Food Commerce
       </button>
       <Divider color={colors.zinc[500]} />
-      {/* Itens */}
+      {/* Items */}
       <div className="mt-2 flex w-full grow flex-col items-center justify-start gap-2 text-zinc-200">
         <button className="w-full rounded px-2 py-1 text-start hover:bg-zinc-800 hover:text-white">
           Produtos
