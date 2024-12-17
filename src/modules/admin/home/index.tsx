@@ -1,7 +1,9 @@
 'use client';
 import { Divider } from '@/shared/components/divider';
 import * as Select from '@radix-ui/react-select';
+import * as Dialog from '@radix-ui/react-dialog';
 import { ChevronDown, ChevronUp, ListFilter } from 'lucide-react';
+import { ProductFormModal } from '../components/product-form-modal';
 
 export const AdminModule = () => {
   return (
@@ -10,9 +12,16 @@ export const AdminModule = () => {
         <header className="flex w-full items-center justify-between">
           <h1 className="text-3xl font-bold text-black">Produtos</h1>
           <div className="flex items-center gap-2">
-            <button className="h-10 rounded-md bg-zinc-900 px-3 text-white transition-all duration-300 hover:shadow-md hover:shadow-zinc-300">
-              Adicionar
-            </button>
+            <Dialog.Root>
+              <Dialog.Trigger className="h-10 rounded-md bg-zinc-900 px-3 text-white transition-all duration-300 hover:shadow-md hover:shadow-zinc-300">
+                Adicionar
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <Dialog.Overlay className="fixed inset-0 bg-zinc-900/20 backdrop-blur-[1px]" />
+                <ProductFormModal />
+              </Dialog.Portal>
+            </Dialog.Root>
+
             <button className="h-10 rounded-md border-2 border-zinc-900 px-3 text-zinc-900 transition-all duration-300 hover:shadow-md hover:shadow-zinc-300">
               Selecionar
             </button>
