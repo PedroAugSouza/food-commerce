@@ -3,6 +3,7 @@ import { InputFile } from '@/shared/components/input-file';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Select from '@radix-ui/react-select';
 import { ChevronDown, X } from 'lucide-react';
+import { CurrencyInput } from 'react-currency-mask';
 
 export const ProductFormModal = () => {
   return (
@@ -55,35 +56,37 @@ export const ProductFormModal = () => {
                     className="rounded px-2 py-1 hover:bg-zinc-200"
                   >
                     <Select.ItemText>Comida</Select.ItemText>
-                    {/* <Select.Icon></Select.Icon> */}
                   </Select.Item>
                   <Select.Item
                     value="drink"
                     className="rounded px-2 py-1 hover:bg-zinc-200"
                   >
                     <Select.ItemText>Bebida</Select.ItemText>
-                    {/* <Select.Icon></Select.Icon> */}
                   </Select.Item>
                   <Select.Item
                     value="Combo"
                     className="rounded px-2 py-1 hover:bg-zinc-200"
                   >
                     <Select.ItemText>Combo</Select.ItemText>
-                    {/* <Select.Icon></Select.Icon> */}
                   </Select.Item>
                 </Select.Group>
               </Select.Viewport>
             </Select.Content>
           </Select.Portal>
         </Select.Root>
+
         <div className="flex h-max w-full flex-col items-start justify-start">
           <span className="ml-1 text-sm">Preço</span>
           <div className="flex w-full items-center gap-1">
-            <span className="text-sm">R$:</span>
-            <input
-              type="text"
-              placeholder="Adicione o preço do produto."
-              className="h-8 flex-1 rounded border border-zinc-900 px-2 text-sm outline-none"
+            <CurrencyInput
+              onChangeValue={(e, value) => console.log(value)}
+              InputElement={
+                <input
+                  type="text"
+                  placeholder="R$ 0,00"
+                  className="h-8 w-full flex-1 rounded border border-zinc-900 px-2 text-sm outline-none"
+                />
+              }
             />
           </div>
         </div>

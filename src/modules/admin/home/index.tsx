@@ -30,7 +30,7 @@ export const AdminModule = () => {
         <Divider />
         <div className="flex w-full items-center justify-start gap-2">
           <Select.Root>
-            <Select.Trigger className="flex w-24 items-center justify-between rounded-full border border-zinc-300 bg-zinc-900 px-2 text-sm text-white">
+            <Select.Trigger className="flex w-24 items-center justify-between rounded-full border border-zinc-300 bg-zinc-900 px-2 py-0.5 text-sm text-white">
               <Select.Value placeholder="Categoria" />
               <Select.Icon>
                 <ChevronDown size={18} />
@@ -66,7 +66,7 @@ export const AdminModule = () => {
             </Select.Content>
           </Select.Root>
           <Select.Root>
-            <Select.Trigger className="flex w-28 items-center justify-between rounded-full border border-zinc-300 bg-zinc-900 px-2 text-sm text-white">
+            <Select.Trigger className="flex w-28 items-center justify-between rounded-full border border-zinc-300 bg-zinc-900 px-2 py-0.5 text-sm text-white">
               <Select.Value placeholder="Valor" />
               <Select.Icon>
                 <ChevronDown size={18} />
@@ -109,7 +109,17 @@ export const AdminModule = () => {
             <ListFilter size={18} />
           </button>
         </div>
-        <div className="mt-1 flex w-full grow flex-col items-center justify-start overflow-auto">
+        <div className="mt-2 flex w-full items-center pr-2 text-sm text-zinc-500">
+          <span className="mx-2">Ord</span>
+          <span className="ml-2 w-44">Nome</span>
+          <span className="ml-2 w-60">Descrição</span>
+          <div className="flex flex-1 items-end justify-end">
+            <span className="w-20 text-center">Preço</span>
+            <span className="mr-2 w-20 text-center">Off</span>
+          </div>
+        </div>
+
+        <div className="flex w-full grow flex-col items-center justify-start overflow-auto">
           <div className="flex h-10 w-full cursor-pointer items-center rounded-md border border-transparent bg-zinc-100 p-2 transition-all duration-200 hover:border-zinc-300">
             {/* <div className="h-4 w-4 rounded border-2 border-zinc-300" /> */}
             <h1 className="mx-2 text-zinc-700">1</h1>
