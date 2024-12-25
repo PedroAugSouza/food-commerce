@@ -72,7 +72,6 @@ export const AdminModule = () => {
                 <ChevronDown size={18} />
               </Select.Icon>
             </Select.Trigger>
-
             <Select.Content
               className="w-28 overflow-hidden rounded-md border border-zinc-300 bg-white text-sm text-black"
               side="bottom"
