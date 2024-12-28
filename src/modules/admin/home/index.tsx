@@ -3,7 +3,7 @@ import { Divider } from '@/shared/components/divider';
 import * as Select from '@radix-ui/react-select';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ChevronDown, ChevronUp, ListFilter } from 'lucide-react';
-import { ProductFormModal } from '../components/product-form-modal';
+import { ProductFormModal } from '../components/product-form/product-form.component';
 
 export const AdminModule = () => {
   return (

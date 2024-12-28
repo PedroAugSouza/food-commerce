@@ -3,10 +3,14 @@
 'use client';
 
 import clsx from 'clsx';
-import { Divide } from 'lucide-react';
 import { useState } from 'react';
+import { UseFormRegister } from 'react-hook-form';
 
-export const InputFile = () => {
+interface Props {
+  register: UseFormRegister<any>;
+}
+
+export const InputFile = ({ register }: Props) => {
   const [imageSelected, setImageSelected] = useState<string>();
 
   const onSelectImage = (imagePath: File) => {
@@ -34,12 +38,17 @@ export const InputFile = () => {
           )}
         </div>
       </label>
+
       <input
         type="file"
         id="file"
         hidden
         accept=".png, .jpg"
-        onChange={(data) => onSelectImage(data.target.files![0])}
+        {...register('image')}
+        onChange={(e) => {
+          onSelectImage(e.target.files![0]);
+          register('file').onChange(e);
+        }}
       />
     </>
   );
