@@ -8,6 +8,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { FormType } from './product-form.contact';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SaveProductSchema } from './product-form.schema';
+import { saveProductService } from '@/shared/services/save-product.service';
 
 export const ProductFormModal = () => {
   const {
@@ -19,16 +20,16 @@ export const ProductFormModal = () => {
     resolver: zodResolver(SaveProductSchema),
   });
 
-  const handleSaveProduct: SubmitHandler<FormType> = (data) => {
+  const handleSaveProduct: SubmitHandler<FormType> = async (data) => {
     const form = new FormData();
 
     form.append('name', data.name);
-    form.append('category', data.category);
+    form.append('category', data.category.toUpperCase());
     form.append('description', data.description);
     form.append('price', String(data.price));
     form.append('image', data.image[0]);
 
-    console.log(Object.fromEntries(form.entries()));
+    await saveProductService(form);
   };
 
   return (
@@ -40,7 +41,11 @@ export const ProductFormModal = () => {
         </Dialog.Close>
       </header>
 
-      <form onSubmit={handleSubmit(handleSaveProduct)} className="w-full">
+      <form
+        onSubmit={handleSubmit(handleSaveProduct)}
+        className="w-full"
+        encType="multipart/form-data"
+      >
         <main className="flex w-full flex-col items-center justify-start gap-3 p-4">
           <InputFile register={register} />
 
@@ -118,12 +123,14 @@ export const ProductFormModal = () => {
                 name="price"
                 render={({ field: { value, onChange } }) => (
                   <CurrencyInput
-                    onChangeValue={onChange}
+                    onChangeValue={(_, value, maskedValue) =>
+                      onChange(maskedValue)
+                    }
+                    value={value}
                     InputElement={
                       <input
                         type="text"
                         placeholder="R$ 0,00"
-                        value={value}
                         className="h-8 w-full flex-1 rounded border border-zinc-900 px-2 text-sm outline-none"
                       />
                     }
@@ -139,7 +146,6 @@ export const ProductFormModal = () => {
             </Dialog.Close>
             <button
               className="rounded bg-emerald-500 px-2 py-1 text-white"
-              // onClick={() => handleSubmit((e) => console.log(e))}
               type="submit"
             >
               Salvar
