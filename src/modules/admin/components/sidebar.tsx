@@ -2,11 +2,11 @@
 
 import { Divider } from '@/shared/components/divider';
 import { useAuth } from '@/shared/contexts/auth/useAuth.hook';
-import { User } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
 import colors from 'tailwindcss/colors';
 
 export const Sidebar = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   return (
     <section className="flex h-full w-full max-w-60 flex-col items-center justify-start bg-zinc-900 p-2 text-sm text-white">
@@ -27,16 +27,18 @@ export const Sidebar = () => {
           <User size={18} />
         </div>
         <div className="flex flex-1 flex-col items-start justify-start">
-          <div className="flex w-full items-center justify-between">
+          <div className="flex items-center justify-between">
             <span className="flex-1 text-sm text-zinc-200">
               {user?.username}
             </span>
-            <div className="mr-2 h-2 w-2 rounded-full border border-zinc-500 bg-emerald-500" />
           </div>
           <span className="text-xs text-zinc-300">
             {user?.role.toLocaleLowerCase()}
           </span>
         </div>
+        <button className="pr-2" onClick={signOut}>
+          <LogOut size={16} />
+        </button>
       </div>
     </section>
   );

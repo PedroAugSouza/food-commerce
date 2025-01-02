@@ -55,6 +55,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signOut = () => {
     deleteCookie(COOKIE_KEY);
     setUser(undefined);
+    push('/login');
   };
 
   return (
