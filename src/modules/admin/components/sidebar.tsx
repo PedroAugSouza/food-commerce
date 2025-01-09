@@ -3,10 +3,12 @@
 import { Divider } from '@/shared/components/divider';
 import { useAuth } from '@/shared/contexts/auth/useAuth.hook';
 import { LogOut, User } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import colors from 'tailwindcss/colors';
 
 export const Sidebar = () => {
   const { user, signOut } = useAuth();
+  const { push } = useRouter();
 
   return (
     <section className="flex h-full w-full max-w-60 flex-col items-center justify-start bg-zinc-900 p-2 text-sm text-white">
@@ -21,6 +23,13 @@ export const Sidebar = () => {
           Produtos
         </button>
       </div>
+
+      <button
+        className="my-2 h-8 w-full rounded-md bg-zinc-700 transition-all hover:bg-zinc-600"
+        onClick={() => push('/')}
+      >
+        Página inicial
+      </button>
       {/* Fast settings user profile */}
       <div className="flex h-12 w-full items-center gap-2 rounded-md bg-zinc-700 px-2">
         <div className="grid h-9 w-9 place-items-center rounded-full bg-zinc-600">
