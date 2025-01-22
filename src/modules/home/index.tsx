@@ -8,7 +8,6 @@ import {
   CarouselPrevious,
 } from '@/shared/components/shadcn/carousel';
 import { ChevronRight, Plus } from 'lucide-react';
-import colors from 'tailwindcss/colors';
 
 export const HomePageModule = () => {
   return (
@@ -30,7 +29,7 @@ export const HomePageModule = () => {
         </CarouselContent>
       </Carousel>
 
-      <section className="mt-2 flex w-full max-w-6xl flex-col items-start justify-start gap-2">
+      <section className="mt-6 flex w-full max-w-6xl flex-col items-start justify-start gap-2">
         <header className="flex w-full items-center justify-between text-zinc-500">
           <span className="border-b border-zinc-400">Ofertas</span>
           <button className="flex items-center gap-2 rounded border border-transparent bg-zinc-100 px-2 py-1 transition-all duration-200 hover:border-zinc-300">
@@ -38,8 +37,8 @@ export const HomePageModule = () => {
             <ChevronRight size={18} />
           </button>
         </header>
-        <div className="relative flex w-full items-center gap-2 overflow-auto">
-          {Array.from({ length: 15 }).map((_, index) => (
+        <div className="relative flex w-full items-center gap-2 overflow-auto before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
+          {Array.from({ length: 7 }).map((_, index) => (
             <div
               key={index}
               className="flex w-[168px] flex-none flex-col items-start justify-start rounded-lg bg-zinc-100 p-3"
@@ -65,7 +64,7 @@ export const HomePageModule = () => {
             <ChevronRight size={18} />
           </button>
         </header>
-        <div className="relative flex w-full items-center gap-2 overflow-auto">
+        <div className="relative flex w-full items-center gap-2 overflow-auto before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
           {Array.from({ length: 15 }).map((_, index) => (
             <div
               key={index}
@@ -92,7 +91,7 @@ export const HomePageModule = () => {
             <ChevronRight size={18} />
           </button>
         </header>
-        <div className="relative flex w-full items-center gap-2 overflow-auto">
+        <div className="relative flex w-full items-center gap-2 overflow-auto before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
           {Array.from({ length: 15 }).map((_, index) => (
             <div
               key={index}

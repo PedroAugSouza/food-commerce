@@ -1,6 +1,6 @@
 'use client';
 
-import { Divider } from '@/shared/components/divider';
+import { Divider } from '@/shared/components/common/divider';
 import { useAuth } from '@/shared/contexts/auth/useAuth.hook';
 import { LogOut, User } from 'lucide-react';
 import { useRouter } from 'next/navigation';

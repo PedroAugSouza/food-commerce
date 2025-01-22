@@ -1,5 +1,5 @@
 'use client';
-import { Divider } from '@/shared/components/divider';
+import { Divider } from '@/shared/components/common/divider';
 import * as Dialog from '@radix-ui/react-dialog';
 import { ProductFormModal } from '../components/product-form/product-form.component';
 import useSWR from 'swr';

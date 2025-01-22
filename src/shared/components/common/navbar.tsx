@@ -1,6 +1,17 @@
 import { Search, ShoppingCart, User } from 'lucide-react';
 import colors from 'tailwindcss/colors';
 
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/shared/components/shadcn/drawer';
+
 export const Navbar = () => {
   return (
     <nav className="fixed top-0 z-10 grid w-full place-items-center bg-white py-3 text-zinc-700 backdrop-blur-sm">
@@ -33,12 +44,24 @@ export const Navbar = () => {
             <User size={20} />
             <span>Conta</span>
           </button>
-          <button className="relative flex h-10 items-center gap-1 rounded-md border border-transparent bg-zinc-100 px-2 text-zinc-700 hover:border-zinc-300">
-            {/* conditional element above */}
-            <div className="absolute -right-1 -top-1 grid size-2.5 place-items-center rounded-full bg-red-500 before:size-2.5 before:rounded-full before:bg-red-500 before:blur-sm" />
-            <ShoppingCart size={20} />
-            <span>1</span>
-          </button>
+
+          <Drawer
+            shouldScaleBackground={true}
+            setBackgroundColorOnScale={false}
+          >
+            <DrawerTrigger className="relative flex h-10 items-center gap-1 rounded-md border border-transparent bg-zinc-100 px-2 text-zinc-700 hover:border-zinc-300">
+              <div className="absolute -right-1 -top-1 grid size-2.5 place-items-center rounded-full bg-red-500 before:size-2.5 before:rounded-full before:bg-red-500 before:blur-sm" />
+              <ShoppingCart size={20} />
+              <span>1</span>
+            </DrawerTrigger>
+
+            <DrawerContent>
+              <DrawerTitle>Carrinho</DrawerTitle>
+              <div className="h-96">
+                <span>produtos do carrinho</span>
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
       </div>
     </nav>

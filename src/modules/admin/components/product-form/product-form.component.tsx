@@ -1,5 +1,5 @@
 'use client';
-import { InputFile } from '@/shared/components/input-file';
+import { InputFile } from '@/shared/components/common/input-file';
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Select from '@radix-ui/react-select';
 import { ChevronDown, X } from 'lucide-react';
