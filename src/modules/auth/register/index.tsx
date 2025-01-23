@@ -1,6 +1,5 @@
 'use client';
 import { registerUserAction } from '@/shared/actions/register-user.action';
-import { Croissant } from 'lucide-react';
 import { useActionState } from 'react';
 
 export const RegisterModule = () => {

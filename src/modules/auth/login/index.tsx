@@ -1,13 +1,8 @@
 'use client';
-import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { LoginFormType, ServerErrorsType } from './types';
+import { LoginFormType } from './types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { authenticateUserSchema } from './authenticate-user.schema';
-import { authenticateUserService } from '@/shared/services/authenticate-user.service';
-import { ReasonsErrors } from '@/shared/constants/reasons-errors.constants';
-import { setCookie } from 'cookies-next';
-import { COOKIE_KEY } from '@/shared/constants';
 import { useAuth } from '@/shared/contexts/auth/useAuth.hook';
 
 export const LoginModule = () => {

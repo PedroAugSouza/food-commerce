@@ -1,8 +1,5 @@
 'use client';
 import { Sidebar } from '@/modules/admin/components/sidebar';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export default function AdminLayout({
   children,

@@ -4,8 +4,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from '@/shared/components/shadcn/carousel';
 import { ChevronRight, Plus } from 'lucide-react';
 

@@ -3,7 +3,6 @@
 import { ReasonsErrors } from '../constants/reasons-errors.constants';
 import { authenticateUserService } from '../services/authenticate-user.service';
 import { authenticateUserSchema } from './authenticate-user.schema';
-import { COOKIE_KEY } from '../constants';
 
 export const AuthenticateUserAction = async (_: unknown, form: FormData) => {
   const result = authenticateUserSchema.safeParse(Object.fromEntries(form));

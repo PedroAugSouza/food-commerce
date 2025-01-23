@@ -6,11 +6,6 @@ import useSWR from 'swr';
 import { IProducts } from '@/shared/types/products.contact';
 import { fetchApi } from '@/shared/utils/fetchApi';
 import { getSession } from '@/shared/utils/get-session';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/shared/components/shadcn/popover';
 
 export const AdminModule = () => {
   const { data: products } = useSWR<IProducts[]>(
