@@ -1,11 +1,13 @@
 'use client';
 
+import { Footer } from '@/shared/components/common/footer';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from '@/shared/components/shadcn/carousel';
-import { ChevronRight, Plus } from 'lucide-react';
+import { ChevronRight, Github, Linkedin, Mail, Plus } from 'lucide-react';
+import Link from 'next/link';
 
 export const HomePageModule = () => {
   return (
@@ -13,15 +15,12 @@ export const HomePageModule = () => {
       <Carousel className="w-full">
         <CarouselContent>
           <CarouselItem className="grid h-96 w-full place-items-center bg-zinc-200">
-            {' '}
             1
           </CarouselItem>
           <CarouselItem className="grid h-96 w-full place-items-center bg-zinc-200">
-            {' '}
             2
           </CarouselItem>
           <CarouselItem className="grid h-96 w-full place-items-center bg-zinc-200">
-            {' '}
             3
           </CarouselItem>
         </CarouselContent>
@@ -108,6 +107,7 @@ export const HomePageModule = () => {
           ))}
         </div>
       </section>
+      <Footer />
     </main>
   );
 };
