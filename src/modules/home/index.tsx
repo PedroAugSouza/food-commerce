@@ -35,7 +35,7 @@ export const HomePageModule = () => {
             <ChevronRight size={18} />
           </button>
         </header>
-        <div className="relative flex w-full items-center gap-2 overflow-auto before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
+        <div className="relative flex w-full items-center gap-2 overflow-hidden before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
           {Array.from({ length: 7 }).map((_, index) => (
             <div
               key={index}
@@ -62,7 +62,7 @@ export const HomePageModule = () => {
             <ChevronRight size={18} />
           </button>
         </header>
-        <div className="relative flex w-full items-center gap-2 overflow-auto before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
+        <div className="relative flex w-full items-center gap-2 overflow-hidden before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
           {Array.from({ length: 15 }).map((_, index) => (
             <div
               key={index}
@@ -89,7 +89,7 @@ export const HomePageModule = () => {
             <ChevronRight size={18} />
           </button>
         </header>
-        <div className="relative flex w-full items-center gap-2 overflow-auto before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
+        <div className="relative flex w-full items-center gap-2 overflow-hidden before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
           {Array.from({ length: 15 }).map((_, index) => (
             <div
               key={index}
