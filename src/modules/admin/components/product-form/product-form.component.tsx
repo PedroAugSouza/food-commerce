@@ -55,7 +55,7 @@ export const ProductFormModal = () => {
               type="text"
               {...register('name')}
               placeholder="Digite o nome do produto."
-              className="h-8 w-full rounded border border-zinc-900 px-2 text-sm outline-none"
+              className="h-8 w-full rounded border border-zinc-400 px-2 text-sm outline-none"
             />
           </div>
           <div className="flex h-max w-full flex-col items-start justify-start">
@@ -64,7 +64,7 @@ export const ProductFormModal = () => {
               {...register('description')}
               placeholder="Informe a descrição do produto."
               rows={4}
-              className="w-full resize-none rounded border border-zinc-900 px-2 text-sm outline-none"
+              className="w-full resize-none rounded border border-zinc-400 px-2 text-sm outline-none"
             />
           </div>
 
@@ -75,7 +75,7 @@ export const ProductFormModal = () => {
               <Select.Root onValueChange={onChange} value={value}>
                 <div className="flex h-max w-full flex-col items-start justify-start">
                   <span className="ml-1 text-sm">Categoria</span>
-                  <Select.Trigger className="flex h-8 w-full items-center justify-between rounded border border-zinc-900 px-2 text-sm text-zinc-900">
+                  <Select.Trigger className="flex h-8 w-full items-center justify-between rounded border border-zinc-400 px-2 text-sm text-zinc-900">
                     <Select.Value placeholder="Selecione uma categoria" />
                     <Select.Icon>
                       <ChevronDown size={18} />
@@ -131,7 +131,7 @@ export const ProductFormModal = () => {
                       <input
                         type="text"
                         placeholder="R$ 0,00"
-                        className="h-8 w-full flex-1 rounded border border-zinc-900 px-2 text-sm outline-none"
+                        className="h-8 w-full flex-1 rounded border border-zinc-400 px-2 text-sm outline-none"
                       />
                     }
                   />

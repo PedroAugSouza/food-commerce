@@ -1,21 +1,26 @@
 'use client';
 
-import { Search, ShoppingCart, User } from 'lucide-react';
+import { LogOut, Search, ShoppingCart, User } from 'lucide-react';
 import colors from 'tailwindcss/colors';
 
 import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from '@/shared/components/shadcn/popover';
+
+import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from '@/shared/components/shadcn/drawer';
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/shared/contexts/auth/useAuth.hook';
 
 export const Navbar = () => {
+  const { signOut } = useAuth();
+
   const path = usePathname();
   return (
     !path.includes('login') &&
@@ -47,10 +52,23 @@ export const Navbar = () => {
             />
           </div>
           <div className="flex items-center gap-2">
-            <button className="flex h-10 items-center gap-1 rounded-md border border-transparent bg-zinc-100 px-2 text-zinc-700 hover:border-zinc-300">
-              <User size={20} />
-              <span>Conta</span>
-            </button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <button className="flex h-10 items-center gap-1 rounded-md border border-transparent bg-zinc-100 px-2 text-zinc-700 hover:border-zinc-300">
+                  <User size={20} />
+                  <span>Conta</span>
+                </button>
+              </PopoverTrigger>
+              <PopoverContent className="w-44 p-1">
+                <button
+                  className="flex w-full items-center justify-between rounded border border-transparent bg-zinc-100 px-2 py-1 transition-all duration-200 hover:border-zinc-300"
+                  onClick={() => signOut()}
+                >
+                  <span>Sair</span>
+                  <LogOut size={14} />
+                </button>
+              </PopoverContent>
+            </Popover>
 
             <Drawer
               shouldScaleBackground={true}

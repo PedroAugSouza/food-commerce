@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { Footer } from '@/shared/components/common/footer';
@@ -6,21 +7,33 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/shared/components/shadcn/carousel';
-import { ChevronRight, Github, Linkedin, Mail, Plus } from 'lucide-react';
-import Link from 'next/link';
+import { IProducts } from '@/shared/types/products.contact';
+import { fetchApi } from '@/shared/utils/fetchApi';
+import { getSession } from '@/shared/utils/get-session';
+import { ChevronRight, Plus } from 'lucide-react';
+import useSWR from 'swr';
 
 export const HomePageModule = () => {
+  const { data: products } = useSWR('/products', async (path: string) => {
+    const result = await fetchApi<IProducts[]>(
+      'get',
+      path,
+      getSession()!.access_token,
+    );
+    return result;
+  });
+
   return (
     <main className="flex h-screen flex-col items-center justify-start pt-16">
       <Carousel className="w-full">
         <CarouselContent>
-          <CarouselItem className="grid h-96 w-full place-items-center bg-zinc-200">
+          <CarouselItem className="grid h-96 w-full place-items-center bg-yellow-200">
             1
           </CarouselItem>
-          <CarouselItem className="grid h-96 w-full place-items-center bg-zinc-200">
+          <CarouselItem className="grid h-96 w-full place-items-center bg-blue-200">
             2
           </CarouselItem>
-          <CarouselItem className="grid h-96 w-full place-items-center bg-zinc-200">
+          <CarouselItem className="grid h-96 w-full place-items-center bg-red-400">
             3
           </CarouselItem>
         </CarouselContent>
@@ -35,16 +48,23 @@ export const HomePageModule = () => {
           </button>
         </header>
         <div className="relative flex w-full items-center gap-2 overflow-hidden before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
-          {Array.from({ length: 7 }).map((_, index) => (
+          {products?.map((product, index) => (
             <div
               key={index}
               className="flex w-[168px] flex-none flex-col items-start justify-start rounded-lg bg-zinc-100 p-3"
             >
               <figure className="grid size-36 place-items-center rounded-md bg-zinc-200 text-zinc-400">
-                Imagem
+                <img
+                  src={`http://localhost:8000${product.image}`}
+                  alt=""
+                  className="h-full w-full"
+                />
               </figure>
               <div className="mt-1 w-full truncate">
-                <span className="truncate">Coca Cola 300ml</span>
+                <span className="truncate">{product.name}</span>
+              </div>
+              <div className="w-full truncate text-sm text-zinc-600">
+                <span className="truncate">{product.price}</span>
               </div>
               <button className="mt-3 grid h-8 w-full place-items-center rounded-md bg-green-500 text-white">
                 <Plus />
@@ -62,22 +82,32 @@ export const HomePageModule = () => {
           </button>
         </header>
         <div className="relative flex w-full items-center gap-2 overflow-hidden before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
-          {Array.from({ length: 15 }).map((_, index) => (
-            <div
-              key={index}
-              className="flex w-[168px] flex-none flex-col items-start justify-start rounded-lg bg-zinc-100 p-3"
-            >
-              <figure className="grid size-36 place-items-center rounded-md bg-zinc-200 text-zinc-400">
-                Imagem
-              </figure>
-              <div className="mt-1 w-full truncate">
-                <span className="truncate">Coca Cola 300ml</span>
-              </div>
-              <button className="mt-3 grid h-8 w-full place-items-center rounded-md bg-green-500 text-white">
-                <Plus />
-              </button>
-            </div>
-          ))}
+          {products?.map(
+            (product, index) =>
+              product.category === 'DRINK' && (
+                <div
+                  key={index}
+                  className="flex w-[168px] flex-none flex-col items-start justify-start rounded-lg bg-zinc-100 p-3"
+                >
+                  <figure className="grid size-36 place-items-center rounded-md bg-zinc-200 text-zinc-400">
+                    <img
+                      src={`http://localhost:8000${product.image}`}
+                      alt=""
+                      className="h-full w-full"
+                    />
+                  </figure>
+                  <div className="mt-1 w-full truncate">
+                    <span className="truncate">{product.name}</span>
+                  </div>
+                  <div className="w-full truncate text-sm text-zinc-600">
+                    <span className="truncate">{product.price}</span>
+                  </div>
+                  <button className="mt-3 grid h-8 w-full place-items-center rounded-md bg-green-500 text-white">
+                    <Plus />
+                  </button>
+                </div>
+              ),
+          )}
         </div>
       </section>
       <section className="mt-20 flex w-full max-w-6xl flex-col items-start justify-start gap-2">
@@ -89,22 +119,32 @@ export const HomePageModule = () => {
           </button>
         </header>
         <div className="relative flex w-full items-center gap-2 overflow-hidden before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
-          {Array.from({ length: 15 }).map((_, index) => (
-            <div
-              key={index}
-              className="flex w-[168px] flex-none flex-col items-start justify-start rounded-lg bg-zinc-100 p-3"
-            >
-              <figure className="grid size-36 place-items-center rounded-md bg-zinc-200 text-zinc-400">
-                Imagem
-              </figure>
-              <div className="mt-1 w-full truncate">
-                <span className="truncate">Coca Cola 300ml</span>
-              </div>
-              <button className="mt-3 grid h-8 w-full place-items-center rounded-md bg-green-500 text-white">
-                <Plus />
-              </button>
-            </div>
-          ))}
+          {products?.map(
+            (product, index) =>
+              product.category === 'FOOD' && (
+                <div
+                  key={index}
+                  className="flex w-[168px] flex-none flex-col items-start justify-start rounded-lg bg-zinc-100 p-3"
+                >
+                  <figure className="grid size-36 place-items-center rounded-md bg-zinc-200 text-zinc-400">
+                    <img
+                      src={`http://localhost:8000${product.image}`}
+                      alt=""
+                      className="h-full w-full"
+                    />
+                  </figure>
+                  <div className="mt-1 w-full truncate">
+                    <span className="truncate">{product.name}</span>
+                  </div>
+                  <div className="w-full truncate text-sm text-zinc-600">
+                    <span className="truncate">{product.price}</span>
+                  </div>
+                  <button className="mt-3 grid h-8 w-full place-items-center rounded-md bg-green-500 text-white">
+                    <Plus />
+                  </button>
+                </div>
+              ),
+          )}
         </div>
       </section>
       <Footer />
