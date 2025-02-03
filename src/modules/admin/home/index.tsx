@@ -6,19 +6,17 @@ import useSWR from 'swr';
 import { IProducts } from '@/shared/types/products.contact';
 import { fetchApi } from '@/shared/utils/fetchApi';
 import { getSession } from '@/shared/utils/get-session';
+import {
+  useFilterProductControllerHandle,
+  useGetProductsControllerHandle,
+} from '@/shared/http/http';
+import { DEFAULT_OPTIONS_QUERY } from '@/shared/http/default-options';
 
 export const AdminModule = () => {
-  const { data: products } = useSWR<IProducts[]>(
-    '/products',
-    async (path: string) => {
-      const result = await fetchApi<IProducts[]>(
-        'get',
-        path,
-        getSession()!.access_token,
-      );
-
-      return result;
-    },
+  // Requisição com Orval / React Query
+  const { data: products } = useFilterProductControllerHandle(
+    { category: '', price: '' },
+    DEFAULT_OPTIONS_QUERY,
   );
 
   return (
@@ -51,7 +49,7 @@ export const AdminModule = () => {
         </div>
 
         <div className="flex w-full grow flex-col items-center justify-start overflow-auto">
-          {products?.map(({ name, description, price }, index) => (
+          {products?.data?.map(({ name, description, price }, index) => (
             <div
               className="flex h-10 w-full cursor-pointer items-center rounded-md border border-transparent bg-zinc-100 p-2 transition-all duration-200 hover:border-zinc-300"
               key={index}

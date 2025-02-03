@@ -1,0 +1,488 @@
+openapi: 3.0.0
+paths:
+  /product:
+    post:
+      operationId: CreateProductController_handle
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InputCreactProductDTO'
+      responses:
+        '201':
+          description: Product created
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IError'
+      security:
+        - bearer: []
+      tags:
+        - Create a new product
+    patch:
+      operationId: UpdateProductController_handle
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputUpdateProductDTO'
+      responses:
+        '201':
+          description: Product updated
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IError'
+      security:
+        - bearer: []
+      tags:
+        - Update a product
+  /cart:
+    post:
+      operationId: AddProductController_handle
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputAddProductDTO'
+      responses:
+        '201':
+          description: Product added in cart
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IError'
+      security:
+        - bearer: []
+      tags:
+        - Add product in cart
+  /cart/remove:
+    delete:
+      operationId: RemoveProductController_handle
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputRemoveProductDTO'
+      responses:
+        '201':
+          description: Product removed of the cart
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IError'
+      security:
+        - bearer: []
+      tags:
+        - Remove product of the cart
+  /cart/update:
+    patch:
+      operationId: ChangeAmountProductController_handle
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputChangeAmountProductDTO'
+      responses:
+        '201':
+          description: Amount product in the cart changed
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IError'
+      security:
+        - bearer: []
+      tags:
+        - Change amount product in cart
+  /product/image/{image}:
+    get:
+      operationId: GetImageProductController_handle
+      parameters:
+        - name: image
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        default:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputGetProductImageDTO'
+      tags:
+        - GetImageProduct
+  /products:
+    get:
+      operationId: FilterProductController_handle
+      parameters:
+        - name: price
+          required: true
+          in: query
+          schema:
+            type: string
+        - name: category
+          required: true
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OutputFilterProductsDTO'
+      security:
+        - bearer: []
+      tags:
+        - FilterProduct
+  /product/{uuid}:
+    get:
+      operationId: GetProductController_handle
+      parameters:
+        - name: uuid
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product Finded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputGetProductDTO'
+      security:
+        - bearer: []
+      tags:
+        - GetProduct
+  /cart/{userUuid}:
+    get:
+      operationId: GetProductsController_handle
+      parameters:
+        - name: userUuid
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutputGetProducts'
+      security:
+        - bearer: []
+      tags:
+        - GetProducts
+  /register:
+    post:
+      operationId: RegisterUserController_handle
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/inputRegisterUserDTO'
+      responses:
+        '201':
+          description: User registred
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IError'
+      tags:
+        - Register
+  /login:
+    post:
+      operationId: AuthenticateUserController_handle
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InputAuthenticateUserDTO'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                properties:
+                  access_token:
+                    type: string
+          description: ''
+        4XX:
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IError'
+      tags:
+        - Login
+info:
+  title: Food Commerce Api
+  description: ''
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    InputCreactProductDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+          format: binary
+        category:
+          type: string
+          enum:
+            - DRINK
+            - FOOD
+            - COMBO
+      required:
+        - name
+        - price
+        - description
+        - image
+        - category
+    IError:
+      type: object
+      properties:
+        reason:
+          type: string
+        message:
+          type: string
+      required:
+        - reason
+        - message
+    InputUpdateProductDTO:
+      type: object
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+          nullable: true
+        price:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        image:
+          type: string
+          nullable: true
+        category:
+          type: string
+          nullable: true
+      required:
+        - uuid
+        - name
+        - price
+        - description
+        - image
+        - category
+    InputAddProductDTO:
+      type: object
+      properties:
+        productsUuid:
+          type: string
+        amountProducts:
+          type: number
+        cartUuid:
+          type: string
+      required:
+        - productsUuid
+        - amountProducts
+        - cartUuid
+    InputRemoveProductDTO:
+      type: object
+      properties:
+        productUuid:
+          type: string
+        cartUuid:
+          type: string
+      required:
+        - productUuid
+        - cartUuid
+    InputChangeAmountProductDTO:
+      type: object
+      properties:
+        productUuid:
+          type: string
+        cartUuid:
+          type: string
+        amountProducts:
+          type: number
+      required:
+        - productUuid
+        - cartUuid
+        - amountProducts
+    OutputGetProductImageDTO:
+      type: object
+      properties:
+        image:
+          type: string
+          format: binary
+      required:
+        - image
+    OutputGetAllProductsDTO:
+      type: object
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        price:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        category:
+          type: string
+      required:
+        - uuid
+        - name
+        - price
+        - description
+        - image
+        - category
+    OutputFilterProductsDTO:
+      type: object
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        price:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        category:
+          type: string
+      required:
+        - uuid
+        - name
+        - price
+        - description
+        - image
+        - category
+    OutputGetProductDTO:
+      type: object
+      properties:
+        uuid:
+          type: string
+        name:
+          type: string
+        price:
+          type: string
+        description:
+          type: string
+        image:
+          type: string
+        category:
+          type: string
+      required:
+        - uuid
+        - name
+        - price
+        - description
+        - image
+        - category
+    OutputGetProducts:
+      type: object
+      properties:
+        totalValue:
+          type: number
+        productsInChart:
+          type: object
+          properties:
+            amountProducts:
+              type: number
+            products:
+              isArray: true
+              type: array
+              items:
+                properties:
+                  category:
+                    type: string
+                  description:
+                    type: string
+                  image:
+                    type: string
+                  name:
+                    type: string
+                  price:
+                    type: string
+                  uuid:
+                    type: string
+      required:
+        - totalValue
+        - productsInChart
+    inputRegisterUserDTO:
+      type: object
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+          enum:
+            - ADMIN
+            - COMMOM
+      required:
+        - email
+        - username
+        - password
+        - role
+    InputAuthenticateUserDTO:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      required:
+        - email
+        - password

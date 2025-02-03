@@ -3,7 +3,8 @@ import { Inter } from 'next/font/google';
 import '../shared/styles/globals.css';
 import { AuthProvider } from '@/shared/contexts/auth/auth.provider';
 import { Navbar } from '@/shared/components/common/navbar';
-import { DrawerCSSProvider } from '@/shared/components/common/drawer-provider';
+import { DrawerCSSProvider } from '@/shared/providers/drawer-css.provider';
+import { QueryClientProvider } from '@/shared/providers/react-quer.provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,14 +20,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className="bg-white">
-      <AuthProvider>
-        <body className={`${inter.className} bg-white`}>
-          <DrawerCSSProvider>
-            <Navbar />
-            {children}
-          </DrawerCSSProvider>
-        </body>
-      </AuthProvider>
+      <QueryClientProvider>
+        <AuthProvider>
+          <body className={`${inter.className} bg-white`}>
+            <DrawerCSSProvider>
+              <Navbar />
+              {children}
+            </DrawerCSSProvider>
+          </body>
+        </AuthProvider>
+      </QueryClientProvider>
     </html>
   );
 }

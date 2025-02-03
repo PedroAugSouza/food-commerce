@@ -7,21 +7,18 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/shared/components/shadcn/carousel';
-import { IProducts } from '@/shared/types/products.contact';
-import { fetchApi } from '@/shared/utils/fetchApi';
-import { getSession } from '@/shared/utils/get-session';
+import { DEFAULT_OPTIONS_QUERY } from '@/shared/http/default-options';
+import { useFilterProductControllerHandle } from '@/shared/http/http';
 import { ChevronRight, Plus } from 'lucide-react';
-import useSWR from 'swr';
 
 export const HomePageModule = () => {
-  const { data: products } = useSWR('/products', async (path: string) => {
-    const result = await fetchApi<IProducts[]>(
-      'get',
-      path,
-      getSession()!.access_token,
-    );
-    return result;
-  });
+  const { data, error } = useFilterProductControllerHandle(
+    {
+      category: 'DRINK',
+      price: '',
+    },
+    DEFAULT_OPTIONS_QUERY,
+  );
 
   return (
     <main className="flex h-screen flex-col items-center justify-start pt-16">
@@ -48,7 +45,7 @@ export const HomePageModule = () => {
           </button>
         </header>
         <div className="relative flex w-full items-center gap-2 overflow-hidden before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
-          {products?.map((product, index) => (
+          {data?.data?.map((product, index) => (
             <div
               key={index}
               className="flex w-[168px] flex-none flex-col items-start justify-start rounded-lg bg-zinc-100 p-3"
@@ -82,7 +79,7 @@ export const HomePageModule = () => {
           </button>
         </header>
         <div className="relative flex w-full items-center gap-2 overflow-hidden before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
-          {products?.map(
+          {data?.data.map(
             (product, index) =>
               product.category === 'DRINK' && (
                 <div
@@ -119,7 +116,7 @@ export const HomePageModule = () => {
           </button>
         </header>
         <div className="relative flex w-full items-center gap-2 overflow-hidden before:absolute before:right-0 before:h-full before:w-8 before:bg-gradient-to-l before:from-white before:to-transparent">
-          {products?.map(
+          {data?.data?.map(
             (product, index) =>
               product.category === 'FOOD' && (
                 <div
